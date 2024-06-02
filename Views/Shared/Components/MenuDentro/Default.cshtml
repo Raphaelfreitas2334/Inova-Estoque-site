@@ -1,0 +1,50 @@
+﻿@model UsuarioModel
+
+<div class="navbar">
+    @if (Model.Funcao == WebApplication1.Enums.PerfilEnum.adimin || Model.Funcao == WebApplication1.Enums.PerfilEnum.Cozinheiro)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">ola, @Model.NomeUsuario</a>
+        </li>
+    }
+
+    <li class="nav-item">
+        <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index">Página inicial</a>
+    </li>
+    @if (Model.Funcao == WebApplication1.Enums.PerfilEnum.adimin)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Usuário</a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="" asp-controller="Fornecedor" asp-action="Index">Fornecedores</a>
+        </li>
+    }
+    @if (Model.Funcao == WebApplication1.Enums.PerfilEnum.adimin || Model.Funcao == WebApplication1.Enums.PerfilEnum.Cozinheiro)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="" asp-controller="Alimento" asp-action="Index">Alimentos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white" asp-area="" asp-controller="AlterarSenha" asp-action="Index">Alterar Senha</a>
+        </li>
+    }
+
+    <li class="nav-item">
+        <a class="nav-link text-white" asp-area="" asp-controller="LoginController1" asp-action="inicio">Log Off</a>
+    </li>
+</div>
+
+<style>
+    .navbar {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .nav-item {
+        display: inline-block;
+        font-size: 12px;
+        margin-left: 10px; /* Espaçamento à esquerda para separar os botões */
+    }
+</style>

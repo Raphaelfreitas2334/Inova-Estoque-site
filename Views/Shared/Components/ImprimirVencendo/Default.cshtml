@@ -1,0 +1,9 @@
+﻿@model UsuarioModel
+
+
+<link rel="stylesheet" href="~/css/EstoqueCSS/indexEstoque.css" />
+
+@if (Model.Funcao == WebApplication1.Enums.PerfilEnum.adimin)
+{
+    <a asp-action="viewImprimirVencendo" asp-controller="Alimento" class="btn btn-primary">Gerar relatorio</a>
+}

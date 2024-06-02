@@ -1,0 +1,79 @@
+﻿@model List<AlimentoModel>
+@{
+    ViewData["Title"] = "Listagem de Alimentos perto de vencer";
+}
+
+
+<link rel="stylesheet" href="~/css/AlimentoCSS/indexAlimento.css" />
+
+@await Component.InvokeAsync("ImprimirVencendo")
+
+<section>
+    <table class="table table-striped table-hover table-Vencendo" id="table-Vencendo">
+        <thead class="thead-custom">
+            <tr>
+                <th id="codigo">#</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Vencimento</th>
+                <th scope="col">Dias para vencer</th>
+                <th scope="col">Status</th>
+                <th scope="col">Unidade de medida</th>
+                <th scope="col">Quantidade atual</th>
+                <th scope="col">Quantidade Mínima</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (AlimentoModel alimento in Model)
+                {
+                    DateTime data1 = DateTime.Now; // primeira data
+                    DateTime data2 = DateTime.Parse(alimento.dataVencimento); // segunda data
+
+                    TimeSpan diferenca = data1 - data2; // obtém a diferença entre as datas
+
+                    <tr>
+                        @if ((diferenca.TotalDays) >= 1 && (diferenca.TotalDays) <= 10) // verifica se a diferença é de 10 dias ou menos
+                        {
+                            <td>@alimento.Id</td>
+                            <td>@alimento.nomeAlimento</td>
+                            <td>@alimento.dataVencimento</td>
+                            <td>Há @Math.Abs(diferenca.Days) dias</td>
+                            <td><span class="badge badge-danger rounded-pill d-inline text-black">Venceu</span></td>
+                            <td>@alimento.unidadeMedida</td>
+                            <td>@alimento.quantidadeAtual</td>
+                            <td>@alimento.quantidadeMinima</td>
+                        }
+                        else
+                        {
+                            <td>@alimento.Id</td>
+                            <td>@alimento.nomeAlimento</td>
+                            <td>@alimento.dataVencimento</td>
+                            <td>Falta @Math.Abs(diferenca.Days) dias</td>
+                            <td><span class="badge badge-warning rounded-pill d-inline text-black">Vencendo</span></td>
+                            <td>@alimento.unidadeMedida</td>
+                            <td>@alimento.quantidadeAtual</td>
+                            <td>@alimento.quantidadeMinima</td>
+
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</section>
+
+<style>
+    .thead-custom {
+        background-color: #000028;
+        color: white;
+    }
+</style>
+
+<script>
+    function fecharMensagem() {
+
+        let msg = document.getElementById("AlertOfSucess");
+        msg.style.display = 'none';
+    }
+</script>
